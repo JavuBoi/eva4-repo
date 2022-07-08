@@ -1,24 +1,34 @@
 import React, { useState } from 'react'
 import InputGroup from '../components/InputGroup'
+import MessageBox from '../components/MessageBox'
 import { useNavigate } from 'react-router-dom'
+import config from '../helpers/config.json'
 
 const Login = () => {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    const [nickname, setNickname] = useState("")
+    const [password, setPassword] = useState("")
+    const [buttonState, setButtonState] = useState(false)
+    const [errorMessage, setErrorMessage] = useState("")
+    const [error, setError] = useState(false)
     const login = useNavigate()
 
     const handleLogin = (event) => {
+        setButtonState(true)
         event.preventDefault()
+        console.log(buttonState)
 
-        fetch('http://localhost:8000/login?nickname=' + email)
+        fetch(config.apiURL + 'login', requestOptions)
             .then(res => {
-                return res.json()
+                switch(res.status){
+                    //
+                }
             })
             .then(data => {
                 if (data[0].password === password) {
                     login('/sales')
                 }
             })
+        setButtonState(false)
     };
 
     return (
@@ -32,10 +42,10 @@ const Login = () => {
                         <p className="login-box-msg">Ingresa tus datos para iniciar sesión</p>
                         <form onSubmit={handleLogin}>
                             <InputGroup
-                                type="email"
-                                value={email}
-                                onChange={setEmail}
-                                placeholder="Email"
+                                type="text"
+                                value={nickname}
+                                onChange={setNickname}
+                                placeholder="Usuario"
                                 icon="envelope" />
                             <InputGroup
                                 type="password"
@@ -45,10 +55,13 @@ const Login = () => {
                                 icon="lock" />
                             <div className="row">
                                 <div className="col-12">
-                                    <button type='submit' className="btn btn-primary btn-block">Iniciar Sesión</button>
+                                    <button type='submit' disabled={buttonState} className="btn btn-primary btn-block">
+                                        {!buttonState && <><i className='fa fa-sign-in'></i> Acceder</>}
+                                        {buttonState && <><i className='fa fa-spin fa-spinner'></i> Accediendo...</>}</button>
                                 </div>
                             </div>
                         </form>
+                        <MessageBox active={error} message={errorMessage} />
                     </div>
                 </div>
             </div>
