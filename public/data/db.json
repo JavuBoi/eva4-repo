@@ -1,0 +1,19 @@
+{
+    "login": [
+        {
+            "nickname": "usuario1@example.com",
+            "password": "Pass123",
+            "operatorId": "01"
+        },
+        {
+            "nickname": "usuario2@example.com",
+            "password": "Pass123",
+            "operatorId": "02"
+        },
+        {
+            "nickname": "usuario3@example.com",
+            "password": "Pass123",
+            "operatorId": "03"
+        }
+    ]
+}
