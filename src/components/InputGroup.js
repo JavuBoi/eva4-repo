@@ -16,7 +16,7 @@ function InputGroup(props) {
                 placeholder={placeholder} />
             <div className="input-group-append">
                 <div className="input-group-text">
-                    <span className={icon && `fas fa-${icon}`} />
+                    <i className={icon && `fas fa-${icon}`} />
                 </div>
             </div>
         </div>

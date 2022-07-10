@@ -2,7 +2,8 @@ import React, { useState } from 'react'
 import InputGroup from '../components/InputGroup'
 import MessageBox from '../components/MessageBox'
 import config from '../helpers/config.json'
-// import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
+import useAuth from '../helpers/useAuth'
 
 const Login = () => {
     const [nickname, setNickname] = useState("")
@@ -15,11 +16,13 @@ const Login = () => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ nickname: nickname, password: password, operatorId: config.operatorId })
     }
-    // const login = useNavigate()
+    const navigate = useNavigate()
+    const { setAuth } = useAuth()
 
     const handleLogin = async (event) => {
         event.preventDefault()
         setButtonDisabled(true)
+        setError(false)
 
         if (nickname.length === 0 || password.length === 0) {
             setError(true)
@@ -31,23 +34,18 @@ const Login = () => {
         fetch(config.apiURL + 'login', requestOptions)
             .then(res => {
                 switch (res.status) {
-                    case 400:
-                        setError(true)
-                        setErrorMessage("La petición está mal formulada.")
-                        break
-                    case 401:
-                        setError(true)
-                        setErrorMessage("Acceso no autorizado.")
-                        break
                     case 403:
+                        setButtonDisabled(false)
                         setError(true)
                         setErrorMessage("Acceso prohibido.")
                         break
                     case 404:
+                        setButtonDisabled(false)
                         setError(true)
                         setErrorMessage("Nombre de usuario o contraseña incorrectos.")
                         break
                     case 500:
+                        setButtonDisabled(false)
                         setError(true)
                         setErrorMessage("Fallo interno del servidor.")
                         break
@@ -56,10 +54,30 @@ const Login = () => {
                 }
                 return res.json()
             })
-            .then(data => {
-                console.log(data);
+            .then(result => {
+
+                if (!result.data[0].active) {
+                    setError(true)
+                    setErrorMessage('El usuario está inactivo.')
+                    return
+                }
+
+                try {
+                    const infoData = result.data[0]
+                    const infoUser = JSON.stringify(infoData)
+
+                    const roles = [infoData['level']]
+                    setAuth({ infoUser, password, roles })
+
+                    setError(false)
+                    navigate('/sales')
+
+                } catch (e) {
+                    console.log(e);
+                }
                 setButtonDisabled(false)
             })
+            .catch(_error => { })
     };
 
     return (
@@ -87,8 +105,8 @@ const Login = () => {
                             <div className="row">
                                 <div className="col-12">
                                     <button type='submit' disabled={buttonDisabled} className="btn btn-primary btn-block">
-                                        {!buttonDisabled && <><i className='fa fa-sign-in'></i> Acceder</>}
-                                        {buttonDisabled && <><i className='fa fa-spin fa-spinner'></i> Accediendo...</>}
+                                        {!buttonDisabled && <><i className='fa fa-sign-in-alt' /> Acceder</>}
+                                        {buttonDisabled && <><i className='fa fa-spin fa-spinner' /> Accediendo...</>}
                                     </button>
                                 </div>
                             </div>
@@ -97,7 +115,7 @@ const Login = () => {
                     </div>
                 </div>
             </div>
-        </div >
+        </div>
     )
 }
 
