@@ -67,7 +67,9 @@ const Login = () => {
                     const infoUser = JSON.stringify(infoData)
 
                     const roles = [infoData['level']]
-                    setAuth({ infoUser, password, roles })
+                    setAuth({ nickname, password, roles })
+
+                    localStorage.setItem("user", infoUser)
 
                     setError(false)
                     navigate('/sales')
