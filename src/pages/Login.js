@@ -67,7 +67,7 @@ const Login = () => {
                     const infoUser = JSON.stringify(infoData)
 
                     const roles = [infoData['level']]
-                    setAuth({ nickname, password, roles })
+                    // setAuth({ nickname, password, roles })
 
                     localStorage.setItem("user", infoUser)
 
@@ -79,7 +79,6 @@ const Login = () => {
                 }
                 setButtonDisabled(false)
             })
-            .catch(_error => { })
     };
 
     return (
