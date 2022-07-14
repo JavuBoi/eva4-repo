@@ -17,9 +17,9 @@ class InputSelect extends React.Component {
     }
 
     render() {
-        const inputLabel = this.state.inputLabel
-        const name = this.state.name
-        const optionList = this.state.options // [{value: value1, content: content1}]
+        const inputLabel = this.state.inputLabel;
+        const name = this.state.name;
+        const optionList = this.state.options; // [{value: value1, content: content1}]
 
         return (
             <div className="form-group mb-3">
