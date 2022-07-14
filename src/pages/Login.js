@@ -85,7 +85,7 @@ const Login = () => {
         <div className='hold-transition login-page'>
             <div className="login-box">
                 <div className="login-logo">
-                    <p>Gigante del Pacífico</p>
+                    <p><b>Cloud</b>Sales</p>
                 </div>
                 <div className="card">
                     <div className="card-body login-card-body">
