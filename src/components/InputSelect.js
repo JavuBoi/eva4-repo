@@ -1,19 +1,40 @@
-const InputSelect = (props) => {
-    const inputLabel = props.inputLabel
-    const name = props.name
-    const options = props.options // [{value: value1, content: content1}, {value: value2, content: content2}]
+import React from "react";
 
-    return (
-        <>
-            <label htmlFor={name}>{inputLabel}</label>
-            <select name={name}>
-                <option defaultValue={true} disabled="disabled">-- Seleccione --</option>
-                {options.map((opcion, i) => {
-                    <option value={opcion.value}>{opcion.content}</option>
-                })}
-            </select>
-        </>
-    )
+class InputSelect extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            options: [],
+            name: this.props.name,
+            inputLabel: this.props.inputLabel
+        }
+    }
+
+    componentDidMount() {
+        this.setState({
+            options: this.props.options
+        })
+    }
+
+    render() {
+        const inputLabel = this.state.inputLabel
+        const name = this.state.name
+        const optionList = this.state.options // [{value: value1, content: content1}]
+
+        return (
+            <div className="form-group mb-3">
+                <label className="control-label" htmlFor={name}>{inputLabel}</label>
+                <select className="form-control" name={name}>
+                    <option defaultValue={true} value="0">-- Seleccione</option>
+                    {optionList.map((opcion, i) => {
+                        return (
+                            <option value={opcion.value} key={i}>{opcion.content}</option>
+                        )
+                    })}
+                </select>
+            </div>
+        )
+    }
 }
 
 export default InputSelect;
