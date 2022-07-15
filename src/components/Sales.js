@@ -2,8 +2,14 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import InputSelect from './InputSelect'
 import InputGroup from './InputGroup'
+import useFetch from '../helpers/useFetch'
 
 function Sales() {
+    const requestOptions = {
+        method: 'GET', headers: { 'Content-Type': 'application/json' }
+    }
+    const { data: clientList } = useFetch('clients/', requestOptions)
+    const { data: productList } = useFetch('products/', requestOptions)
     return (
         <div className='content-wrapper'>
             <section className='content-header'>

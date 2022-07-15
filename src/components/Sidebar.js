@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 function Sidebar() {
     return (
         <aside className="main-sidebar elevation-4 anchor">
-            <div className="container-fluid">
+            <div className="container-fluid text-center">
                 <Link to="/sales" className="navbar-brand mt-1">
                     <i className="fas fa-cloud"></i> <span className="brand-text"><b>Cloud</b>Sales</span>
                 </Link>
