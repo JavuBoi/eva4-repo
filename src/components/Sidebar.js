@@ -4,15 +4,12 @@ import { Link } from 'react-router-dom'
 function Sidebar() {
     return (
         <aside className="main-sidebar elevation-4 anchor">
-            {/* Brand Logo */}
             <div className="container-fluid">
                 <Link to="/sales" className="navbar-brand mt-1">
                     <i className="fas fa-cloud"></i> <span className="brand-text"><b>Cloud</b>Sales</span>
                 </Link>
             </div>
-            {/* Sidebar */}
             <div className="sidebar">
-                {/* Sidebar Menu */}
                 <nav className="mt-1">
                     <ul className="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                         <li className="nav-header">ACCESOS</li>
