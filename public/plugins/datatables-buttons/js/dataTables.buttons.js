@@ -1,4 +1,4 @@
-/*! Buttons for DataTables 2.2.3
+/*! Buttons for DataTables 2.2.2
  * ©2016-2022 SpryMedia Ltd - datatables.net/license
  */
 
@@ -864,7 +864,7 @@ $.extend( Buttons.prototype, {
 				className: this.c.dom.splitDropdown.className,
 				closeButton: false,
 				attr: {
-					'aria-haspopup': 'dialog',
+					'aria-haspopup': true,
 					'aria-expanded': false
 				},
 				align: this.c.dom.splitDropdown.align,
@@ -1226,7 +1226,7 @@ $.extend( Buttons.prototype, {
 				}
 			);
 
-			$(dt.buttons( '[aria-haspopup="dialog"][aria-expanded="true"]' ).nodes())
+			$(dt.buttons( '[aria-haspopup="true"][aria-expanded="true"]' ).nodes())
 				.attr('aria-expanded', 'false');
 
 			$('div.dt-button-background').off( 'click.dtb-collection' );
@@ -1243,7 +1243,7 @@ $.extend( Buttons.prototype, {
 			return;
 		}
 
-		var existingExpanded = $(dt.buttons( '[aria-haspopup="dialog"][aria-expanded="true"]' ).nodes());
+		var existingExpanded = $(dt.buttons( '[aria-haspopup="true"][aria-expanded="true"]' ).nodes());
 		if ( existingExpanded.length ) {
 			// Reuse the current position if the button that was triggered is inside an existing collection
 			if (hostNode.closest('div.dt-button-collection').length) {
@@ -1272,11 +1272,7 @@ $.extend( Buttons.prototype, {
 			.addClass(options.collectionLayout)
 			.addClass(options.splitAlignClass)
 			.addClass(mod)
-			.css('display', 'none')
-			.attr({
-				'aria-modal': true,
-				role: 'dialog'
-			});
+			.css('display', 'none');
 
 		content = $(content)
 			.addClass(options.contentClassName)
@@ -1463,34 +1459,6 @@ $.extend( Buttons.prototype, {
 				.on( 'keyup.dtb-collection', function (e) {
 					if ( e.keyCode === 27 ) {
 						close();
-					}
-				} )
-				.on( 'keydown.dtb-collection', function (e) {
-					// Focus trap for tab key
-					var elements = $('a, button', content);
-					var active = document.activeElement;
-
-					if (e.keyCode !== 9) { // tab
-						return;
-					}
-
-					if (elements.index(active) === -1) {
-						// If current focus is not inside the popover
-						elements.first().focus();
-						e.preventDefault();
-					}
-					else if (e.shiftKey) {
-						// Reverse tabbing order when shift key is pressed
-						if (active === elements[0]) {
-							elements.last().focus();
-							e.preventDefault();
-						}
-					}
-					else {
-						if (active === elements.last()[0]) {
-							elements.first().focus();
-							e.preventDefault();
-						}
 					}
 				} );
 		}, 0);
@@ -1837,7 +1805,7 @@ Buttons.defaults = {
  * @type {string}
  * @static
  */
-Buttons.version = '2.2.3';
+Buttons.version = '2.2.2';
 
 
 $.extend( _dtButtons, {
@@ -1857,15 +1825,9 @@ $.extend( _dtButtons, {
 			else {
 				this.popover(config._collection, config);
 			}
-
-			// When activated using a key - auto focus on the
-			// first item in the popover
-			if (e.type === 'keypress') {
-				$('a, button', config._collection).eq(0).focus();
-			}
 		},
 		attr: {
-			'aria-haspopup': 'dialog'
+			'aria-haspopup': true
 		}
 		// Also the popover options, defined in Buttons.popover
 	},
@@ -1882,7 +1844,7 @@ $.extend( _dtButtons, {
 			this.popover(config._collection, config);
 		},
 		attr: {
-			'aria-haspopup': 'dialog'
+			'aria-haspopup': true
 		}
 		// Also the popover options, defined in Buttons.popover
 	},

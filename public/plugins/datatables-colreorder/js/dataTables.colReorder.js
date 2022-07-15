@@ -1,14 +1,15 @@
-/*! ColReorder 1.5.6
- * ©2010-2022 SpryMedia Ltd - datatables.net/license
+/*! ColReorder 1.5.4
+ * ©2010-2021 SpryMedia Ltd - datatables.net/license
  */
 
 /**
  * @summary     ColReorder
  * @description Provide the ability to reorder columns in a DataTable
- * @version     1.5.6
+ * @version     1.5.4
+ * @file        dataTables.colReorder.js
  * @author      SpryMedia Ltd (www.sprymedia.co.uk)
- * @contact     www.sprymedia.co.uk
- * @copyright   SpryMedia Ltd.
+ * @contact     www.sprymedia.co.uk/contact
+ * @copyright   Copyright 2010-2021 SpryMedia Ltd.
  *
  * This source file is free software, available under the following license:
  *   MIT license - http://datatables.net/license/mit
@@ -306,8 +307,10 @@ $.fn.dataTableExt.oApi.fnColReorder = function ( oSettings, iFrom, iTo, drop, in
 			}
 		}
 
-		// Swap around array sourced data (object based is left as is)
-		if ( Array.isArray( data._aData ) ) {
+		// For DOM sourced data, the invalidate will reread the cell into
+		// the data array, but for data sources as an array, they need to
+		// be flipped
+		if ( data.src !== 'dom' && Array.isArray( data._aData ) ) {
 			fnArraySwitch( data._aData, iFrom, iTo );
 		}
 	}
@@ -328,9 +331,7 @@ $.fn.dataTableExt.oApi.fnColReorder = function ( oSettings, iFrom, iTo, drop, in
 
 	if ( invalidateRows || invalidateRows === undefined )
 	{
-		// Always read from the data object rather than reading back from the DOM
-		// since it could have been changed by a renderer
-		$.fn.dataTable.Api( oSettings ).rows().invalidate('data');
+		$.fn.dataTable.Api( oSettings ).rows().invalidate();
 	}
 
 	/*
@@ -722,10 +723,6 @@ $.extend( ColReorder.prototype, {
 			that._fnStateSave.call( that, oData );
 		}, "ColReorder_State" );
 
-		this.s.dt.oApi._fnCallbackReg(this.s.dt, 'aoStateLoadParams', function(oS, oData) {
-			that.s.dt._colReorder.fnOrder(oData.ColReorder, true);
-		})
-
 		/* An initial column order has been specified */
 		var aiOrder = null;
 		if ( this.s.init.aiOrder )
@@ -823,7 +820,7 @@ $.extend( ColReorder.prototype, {
 			return;
 		}
 
-		$.fn.dataTable.Api( this.s.dt ).rows().invalidate('data');
+		$.fn.dataTable.Api( this.s.dt ).rows().invalidate();
 
 		/* When scrolling we need to recalculate the column sizes to allow for the shift */
 		if ( this.s.dt.oScroll.sX !== "" || this.s.dt.oScroll.sY !== "" )
@@ -852,9 +849,6 @@ $.extend( ColReorder.prototype, {
 	 */
 	"_fnStateSave": function ( oState )
 	{
-		if(this.s === null) {
-			return;
-		}
 		var i, iLen, aCopy, iOrigColumn;
 		var oSettings = this.s.dt;
 		var columns = oSettings.aoColumns;
@@ -1254,10 +1248,10 @@ $.extend( ColReorder.prototype, {
 			.css( {
 				position: 'absolute',
 				top: scrolling ?
-					$($(this.s.dt.nScrollBody).parent()).offset().top :
+					$('div.dataTables_scroll', this.s.dt.nTableWrapper).offset().top :
 					$(this.s.dt.nTable).offset().top,
 				height : scrolling ?
-					$($(this.s.dt.nScrollBody).parent()).height() :
+					$('div.dataTables_scroll', this.s.dt.nTableWrapper).height() :
 					$(this.s.dt.nTable).height()
 			} )
 			.appendTo( 'body' );
@@ -1380,7 +1374,7 @@ ColReorder.defaults = {
  *  @type      String
  *  @default   As code
  */
-ColReorder.version = "1.5.6";
+ColReorder.version = "1.5.4";
 
 
 
