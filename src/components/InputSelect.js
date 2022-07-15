@@ -20,16 +20,16 @@ class InputSelect extends React.Component {
     render() {
         const inputLabel = this.state.inputLabel;
         const name = this.state.name;
-        const optionList = this.state.options; // [{value: value1, content: content1}]
+        const optionList = this.state.options;
 
         return (
             <div className="form-group mb-3">
                 <label className="control-label" htmlFor={name}>{inputLabel}</label>
                 <select className="form-control" name={name}>
                     <option defaultValue={true} value="0">-- Seleccione</option>
-                    {optionList.map((opcion, i) => {
+                    {optionList.map(({ id, name }) => {
                         return (
-                            <option value={opcion.value} key={i}>{opcion.content}</option>
+                            <option value={id} key={id}>{name}</option>
                         )
                     })}
                 </select>
