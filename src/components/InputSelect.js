@@ -11,8 +11,9 @@ class InputSelect extends React.Component {
     }
 
     componentDidMount() {
+        const options = this.props.options ? this.props.options : [];
         this.setState({
-            options: this.props.options
+            options: options
         })
     }
 

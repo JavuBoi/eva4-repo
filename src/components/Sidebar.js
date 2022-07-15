@@ -5,20 +5,45 @@ function Sidebar() {
     return (
         <aside className="main-sidebar elevation-4 anchor">
             {/* Brand Logo */}
-            <Link to="/sales" className="brand-link">
-                <img src="./images/Logo-Gigante-2.png" alt="Gigante del Pacifico Logo" className="img-fluid elevation-0" />
-            </Link>
+            <div className="container-fluid">
+                <Link to="/sales" className="navbar-brand mt-1">
+                    <i className="fas fa-cloud"></i> <span className="brand-text"><b>Cloud</b>Sales</span>
+                </Link>
+            </div>
             {/* Sidebar */}
             <div className="sidebar">
                 {/* Sidebar Menu */}
-                <nav className="mt-2">
+                <nav className="mt-1">
                     <ul className="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-
+                        <li className="nav-header">ACCESOS</li>
+                        <li className="nav-item">
+                            <Link to="/sales" className="nav-link">
+                                <i className="nav-icon fas fa-cart-shopping" />
+                                <p>Ventas</p>
+                            </Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link to="/sales" className="nav-link">
+                                <i className="nav-icon fas fa-user" />
+                                <p>Clientes</p>
+                            </Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link to="/products" className="nav-link">
+                                <i className="nav-icon fas fa-box" />
+                                <p>Productos</p>
+                            </Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link to="/sales" className="nav-link">
+                                <i className="nav-icon fas fa-users" />
+                                <p>Usuarios</p>
+                            </Link>
+                        </li>
                     </ul>
                 </nav>
             </div>
         </aside>
-
     )
 }
 

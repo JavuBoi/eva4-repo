@@ -1,17 +1,15 @@
-import Dashboard from "../components/Dashboard";
-import Footer from "../components/Footer";
+import Sales from "../components/Sales";
 import Navbar from "../components/Navbar";
 import Sidebar from "../components/Sidebar";
 
-function Home() {
+function Content() {
     return (
         <div>
             <Navbar />
             <Sidebar />
-            <Dashboard />
-            <Footer />
+            <Sales />
         </div>
     );
 }
 
-export default Home;
+export default Content;

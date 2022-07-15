@@ -3,7 +3,7 @@ import InputGroup from '../components/InputGroup'
 import MessageBox from '../components/MessageBox'
 import config from '../helpers/config.json'
 import { useNavigate } from 'react-router-dom'
-import useAuth from '../helpers/useAuth'
+// import useAuth from '../helpers/useAuth'
 
 const Login = () => {
     const [nickname, setNickname] = useState("")
@@ -17,7 +17,7 @@ const Login = () => {
         body: JSON.stringify({ nickname: nickname, password: password, operatorId: config.operatorId })
     }
     const navigate = useNavigate()
-    const { setAuth } = useAuth()
+    // const { setAuth } = useAuth()
 
     const handleLogin = async (event) => {
         event.preventDefault()
@@ -93,12 +93,14 @@ const Login = () => {
                         <form onSubmit={handleLogin}>
                             <InputGroup
                                 type="text"
+                                name="username"
                                 value={nickname}
                                 onChange={setNickname}
                                 placeholder="Usuario"
                                 icon="envelope" />
                             <InputGroup
                                 type="password"
+                                name="password"
                                 value={password}
                                 onChange={setPassword}
                                 placeholder="Contraseña"
@@ -106,7 +108,7 @@ const Login = () => {
                             <div className="row">
                                 <div className="col-12">
                                     <button type='submit' disabled={buttonDisabled} className="btn btn-primary btn-block">
-                                        {!buttonDisabled && <><i className='fa fa-sign-in-alt' /> Acceder</>}
+                                        {!buttonDisabled && <><i className='fa fa-sign-in' /> Acceder</>}
                                         {buttonDisabled && <><i className='fa fa-spin fa-spinner' /> Accediendo...</>}
                                     </button>
                                 </div>
