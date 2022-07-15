@@ -1,6 +1,0 @@
-.label-empty {
-    padding-top: 25px;
-}
-.label-empty::before {
-    content: "\00a0 ";
-}
