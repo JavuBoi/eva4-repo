@@ -35,6 +35,7 @@ function Sales() {
                                 <InputSelect
                                     name="cliente"
                                     inputLabel="Cliente"
+                                    optionList={clientList}
                                 />
                             </div>
                             <div className="col-2">
@@ -49,6 +50,7 @@ function Sales() {
                                 <InputSelect
                                     name="producto"
                                     inputLabel="Producto"
+                                    optionList={productList}
                                 />
                             </div>
                             <div className="col-4">
