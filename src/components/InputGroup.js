@@ -1,15 +1,6 @@
 import React from 'react'
 
-function InputGroup(props) {
-    const type = props.type;
-    const value = props.value;
-    const setValue = props.onChange;
-    const name = props.name;
-    const placeholder = props.placeholder;
-    const readOnly = props.readOnly;
-    const inputLabel = props.inputLabel;
-    const icon = props.icon;
-
+function InputGroup({ type, value, name, placeholder, readOnly, inputLabel, icon, onChange: setValue }) {
     return (
 
         <div className={(inputLabel ? "form" : "input") + "-group mb-3"}>
