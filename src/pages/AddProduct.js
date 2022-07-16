@@ -7,7 +7,7 @@ import Sidebar from "../components/Sidebar";
 import InputGroup from '../components/InputGroup';
 
 
-function AddProduct() {
+const AddProduct = () => {
     const navigate = useNavigate()
     const [name, setName] = useState("")
     const [msu, setMSU] = useState("")

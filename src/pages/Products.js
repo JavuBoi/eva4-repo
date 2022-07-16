@@ -6,7 +6,7 @@ import Navbar from "../components/Navbar";
 import Sidebar from "../components/Sidebar";
 import useFetchGet from '../helpers/useFetchGet';
 
-function Products() {
+const Products = () => {
     const navigate = useNavigate()
     const { data: productList } = useFetchGet('products/')
 

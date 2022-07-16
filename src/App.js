@@ -4,7 +4,7 @@ import Login from './pages/Login'
 import Products from './pages/Products';
 import Sales from './pages/Sales'
 
-function App() {
+const App = () => {
   return (
     <div>
       <Routes>

@@ -6,7 +6,7 @@ import Navbar from "../components/Navbar";
 import Sidebar from "../components/Sidebar";
 import ContentHeader from '../components/ContentHeader'
 
-function Sales() {
+const Sales = () => {
     const { data: clientList } = useFetchGet('clients/')
     const { data: productList } = useFetchGet('products/')
     return (

@@ -1,6 +1,6 @@
 import React from 'react'
 
-function CustomButton({ btnContent, btnStyle, icon, onClick: handleClick }) {
+const CustomButton = ({ btnContent, btnStyle, icon, onClick: handleClick }) => {
     return (
         <button
             className={"btn btn-" + btnStyle}

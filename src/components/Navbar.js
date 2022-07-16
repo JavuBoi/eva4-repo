@@ -1,6 +1,6 @@
 import React from 'react'
 
-function Navbar() {
+const Navbar = () => {
     return (
         <nav className="main-header navbar navbar-expand navbar-white navbar-light">
             {/* Left navbar links */}

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-function Sidebar() {
+const Sidebar = () => {
     return (
         <aside className="main-sidebar elevation-4 anchor">
             <div className="container-fluid text-center">

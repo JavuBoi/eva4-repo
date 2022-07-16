@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-function ContentHeader({ title, name, parentName, parentRoute }) {
+const ContentHeader = ({ title, name, parentName, parentRoute }) => {
     return (
         <section className='content-header'>
             <div className="container-fluid">
