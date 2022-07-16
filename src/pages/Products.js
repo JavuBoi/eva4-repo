@@ -1,26 +1,29 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import ContentHeader from '../components/ContentHeader';
 import CustomButton from '../components/CustomButton';
 import Navbar from "../components/Navbar";
 import Sidebar from "../components/Sidebar";
-import useFetch from '../helpers/useFetch';
+import useFetchGet from '../helpers/useFetchGet';
 
 function Products() {
-    const { data: productList } = useFetch('products/')
+    const navigate = useNavigate()
+    const { data: productList } = useFetchGet('products/')
 
     return (
         <div>
             <Navbar />
             <Sidebar />
             <div className="content-wrapper">
-                <ContentHeader name="Productos" />
+                <ContentHeader name="Productos" title="Panel de Ventas" />
                 <section className="content">
                     <div className="card">
                         <div className="card-body">
                             <div className="row">
                                 <div className="col-12">
-                                    <Link to="/add-product" className="btn btn-success"><i className="fas fa-plus"></i> Nuevo</Link>
+                                    <CustomButton btnStyle="success" btnContent="Nuevo"
+                                        icon="plus" onClick={() => navigate("/products/add")}
+                                    />
                                 </div>
                                 <div className="col-12">
                                     <hr />

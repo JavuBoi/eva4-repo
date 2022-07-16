@@ -1,21 +1,21 @@
 import React from 'react'
 import InputSelect from '../components/InputSelect'
 import InputGroup from '../components/InputGroup'
-import useFetch from '../helpers/useFetch'
+import useFetchGet from '../helpers/useFetchGet'
 import Navbar from "../components/Navbar";
 import Sidebar from "../components/Sidebar";
 import ContentHeader from '../components/ContentHeader'
 
 function Sales() {
-    const { data: clientList } = useFetch('clients/')
-    const { data: productList } = useFetch('products/')
+    const { data: clientList } = useFetchGet('clients/')
+    const { data: productList } = useFetchGet('products/')
     return (
 
         <div>
             <Navbar />
             <Sidebar />
             <div className='content-wrapper'>
-                <ContentHeader name="Ventas" />
+                <ContentHeader name="Ventas" title="Panel de Ventas" />
                 <section className="content">
                     <div className="card">
                         <div className="card-body ">
