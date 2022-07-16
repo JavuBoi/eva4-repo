@@ -32,9 +32,21 @@ function Sidebar() {
                             </Link>
                         </li>
                         <li className="nav-item">
+                            <Link to="/add-product" className="nav-link">
+                                <i className="nav-icon fas fa-boxes-packing" />
+                                <p>Agregar Productos</p>
+                            </Link>
+                        </li>
+                        <li className="nav-item">
                             <Link to="/sales" className="nav-link">
                                 <i className="nav-icon fas fa-users" />
                                 <p>Usuarios</p>
+                            </Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link to="/sales" className="nav-link">
+                                <i className="nav-icon fas fa-user-plus" />
+                                <p>Agregar Usuario</p>
                             </Link>
                         </li>
                     </ul>

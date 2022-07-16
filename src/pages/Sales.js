@@ -1,38 +1,21 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
 import InputSelect from '../components/InputSelect'
 import InputGroup from '../components/InputGroup'
 import useFetch from '../helpers/useFetch'
 import Navbar from "../components/Navbar";
 import Sidebar from "../components/Sidebar";
+import ContentHeader from '../components/ContentHeader'
 
 function Sales() {
-    const requestOptions = {
-        method: 'GET', headers: { 'Content-Type': 'application/json' }
-    }
-    const { data: clientList } = useFetch('clients/', requestOptions)
-    const { data: productList } = useFetch('products/', requestOptions)
+    const { data: clientList } = useFetch('clients/')
+    const { data: productList } = useFetch('products/')
     return (
 
         <div>
             <Navbar />
             <Sidebar />
             <div className='content-wrapper'>
-                <section className='content-header'>
-                    <div className="container-fluid">
-                        <div className="row">
-                            <div className="col-6">
-                                <h1>Panel de Ventas</h1>
-                            </div>
-                            <div className="col-6">
-                                <ol className="breadcrumb float-sm-right">
-                                    <li className="breadcrumb-item"><Link to="/sales">Cloud Sales</Link></li>
-                                    <li className="breadcrumb-item active"> Ventas</li>
-                                </ol>
-                            </div>
-                        </div>
-                    </div>
-                </section>
+                <ContentHeader name="Ventas" />
                 <section className="content">
                     <div className="card">
                         <div className="card-body ">

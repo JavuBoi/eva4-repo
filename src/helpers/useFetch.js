@@ -1,7 +1,10 @@
 import { useState, useEffect } from 'react';
 import config from '../helpers/config.json';
 
-const useFetch = (endPoint, requestOptions) => {
+const useFetch = (endPoint) => {
+    const requestOptions = {
+        method: 'GET', headers: { 'Content-Type': 'application/json' }
+    };
     const [data, setData] = useState(null);
     const [status, setStatus] = useState(null)
 
