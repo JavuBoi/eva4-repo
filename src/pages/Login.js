@@ -66,7 +66,7 @@ const Login = () => {
                     const infoData = result.data[0]
                     const infoUser = JSON.stringify(infoData)
 
-                    const roles = [infoData['level']]
+                    // const roles = [infoData['level']]
                     // setAuth({ nickname, password, roles })
 
                     localStorage.setItem("user", infoUser)
@@ -95,14 +95,14 @@ const Login = () => {
                                 type="text"
                                 name="username"
                                 value={nickname}
-                                onChange={setNickname}
+                                setValue={setNickname}
                                 placeholder="Usuario"
                                 icon="envelope" />
                             <InputGroup
                                 type="password"
                                 name="password"
                                 value={password}
-                                onChange={setPassword}
+                                setValue={setPassword}
                                 placeholder="Contraseña"
                                 icon="lock" />
                             <div className="row">
