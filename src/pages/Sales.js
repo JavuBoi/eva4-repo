@@ -1,14 +1,46 @@
-import React from 'react'
+import React, { useState } from 'react'
 import InputSelect from '../components/InputSelect'
 import InputGroup from '../components/InputGroup'
 import useFetchGet from '../helpers/useFetchGet'
 import Navbar from "../components/Navbar";
 import Sidebar from "../components/Sidebar";
 import ContentHeader from '../components/ContentHeader'
+import { useEffect } from 'react';
 
 const Sales = () => {
-    const { data: clientList } = useFetchGet('clients/')
-    const { data: productList } = useFetchGet('products/')
+    const clientList = useFetchGet('clients/').data
+    const productList = useFetchGet('products/').data
+    const [clientId, setClientId] = useState("")
+    const [productId, setProductId] = useState("")
+
+    // Mostrar datos del producto en formulario
+    const [product, setProduct] = useState("")
+    const [qty, setQty] = useState("")
+    const [discount, setDiscount] = useState(0)
+    const [total, setTotal] = useState(0)
+
+    useEffect(() => {
+        try {
+            setProduct(productList.find(product => { return product.id === productId }))
+            setDiscount(product.MDPrice)
+        } catch (e) {
+            //
+        }
+    }, [productId, productList, product])
+
+    useEffect(() => {
+        try {
+            if (product) {
+                const { price, MDPrice } = product
+                setDiscount(qty * MDPrice > 0 ? qty * MDPrice : MDPrice)
+                setTotal(qty * (price - MDPrice) > 0 ? qty * (price - MDPrice) : 0)
+
+            }
+        } catch (e) {
+            //
+        }
+    }, [qty, productId])
+
     return (
 
         <div>
@@ -21,11 +53,14 @@ const Sales = () => {
                         <div className="card-body ">
                             <div className="row">
                                 <div className="col-10">
-                                    <InputSelect
+                                    {clientList && <InputSelect
                                         name="cliente"
                                         inputLabel="Cliente"
                                         optionList={clientList}
-                                    />
+                                        value={clientId}
+                                        setValue={setClientId}
+                                    />}
+
                                 </div>
                                 <div className="col-2">
                                     <div className="form-group">
@@ -36,18 +71,19 @@ const Sales = () => {
                             </div>
                             <div className="row">
                                 <div className="col-12">
-                                    <InputSelect
+                                    {productList && <InputSelect
                                         name="producto"
                                         inputLabel="Producto"
                                         optionList={productList}
-                                    />
+                                        value={productId}
+                                        setValue={setProductId}
+                                    />}
                                 </div>
                                 <div className="col-4">
                                     <InputGroup
                                         type="text"
-                                        value=""
-                                        onChange=""
-                                        name="msv"
+                                        value={product ? product.MSU : 0}
+                                        name="msu"
                                         inputLabel="U.M.V."
                                         readOnly={true}
                                     />
@@ -55,8 +91,7 @@ const Sales = () => {
                                 <div className="col-4">
                                     <InputGroup
                                         type="text"
-                                        value=""
-                                        onChange=""
+                                        value={product ? product.stock : 0}
                                         name="stock"
                                         inputLabel="Stock"
                                         readOnly={true}
@@ -65,8 +100,8 @@ const Sales = () => {
                                 <div className="col-4">
                                     <InputGroup
                                         type="text"
-                                        value=""
-                                        onChange=""
+                                        value={qty}
+                                        setValue={setQty}
                                         name="qty"
                                         inputLabel="Cantidad"
                                     />
@@ -74,28 +109,32 @@ const Sales = () => {
                                 <div className="col-4">
                                     <InputGroup
                                         type="text"
-                                        value=""
-                                        onChange=""
+                                        value={"$" + (product ? product.price : 0)}
                                         name="unitary"
                                         inputLabel="Unitario"
+                                        readOnly={true}
+                                        style=" bg-white"
                                     />
                                 </div>
                                 <div className="col-4">
                                     <InputGroup
                                         type="text"
-                                        value=""
-                                        onChange=""
+                                        value={"$" + (product ? discount : 0)}
                                         name="discount"
                                         inputLabel="Descuento"
+                                        readOnly={true}
+                                        style=" bg-white"
+
                                     />
                                 </div>
                                 <div className="col-4">
                                     <InputGroup
                                         type="text"
-                                        value=""
-                                        onChange=""
+                                        value={"$" + (product ? total : 0)}
                                         name="total"
                                         inputLabel="Total"
+                                        readOnly={true}
+                                        style=" bg-white"
                                     />
                                 </div>
                                 <div className="col-12">
