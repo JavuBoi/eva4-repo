@@ -1,6 +1,6 @@
 import React from 'react'
 
-const InputGroup = ({ type, value, name, placeholder, readOnly, inputLabel, icon, onChange: setValue }) => {
+const InputGroup = ({ type, value, name, placeholder, readOnly, inputLabel, icon, setValue }) => {
     return (
 
         <div className={(inputLabel ? "form" : "input") + "-group mb-3"}>

@@ -1,7 +1,4 @@
-const MessageBox = (props) => {
-    const active = props.active
-    const message = props.message
-
+const MessageBox = ({ active, message }) => {
     return (
         <>
             {active && <div className="alert alert-danger mt-1">
