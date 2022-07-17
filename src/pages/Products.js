@@ -38,13 +38,17 @@ const Products = () => {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>Manzana</td>
-                                            <td>$100</td>
-                                            <td>50</td>
-                                            <td><CustomButton btnContent="Deshabilitar" btnStyle="secondary" icon="eye-slash" /></td>
-                                            <td><CustomButton btnContent="Editar" btnStyle="warning" icon="pencil" /></td>
-                                        </tr>
+                                        {productList && productList.map(({ id, name, MSU, price, stock, MDPrice, MDPercentage, active }) => {
+                                            return (
+                                                <tr key={id}>
+                                                    <td>{name}</td>
+                                                    <td>${price}</td>
+                                                    <td>{stock}</td>
+                                                    <td><CustomButton btnContent="Deshabilitar" btnStyle="secondary" icon="eye-slash" /></td>
+                                                    <td><CustomButton btnContent="Editar" btnStyle="warning" icon="pencil" /></td>
+                                                </tr>
+                                            )
+                                        })}
                                     </tbody>
                                 </table>
                             </div>
