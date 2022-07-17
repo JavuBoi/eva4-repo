@@ -9,20 +9,32 @@ const useFetchGet = (endPoint) => {
     const [status, setStatus] = useState(null)
 
     useEffect(() => {
-        console.log("useEffect ran");
         fetch(config.apiURL + endPoint + config.operatorId, requestOptions)
             .then((res) => {
-                console.log("fetch started " + endPoint);
                 setStatus(res.status)
                 return res.json();
             })
             .then((result) => {
                 setData(result.data);
-                console.log("fetch ended " + endPoint);
             })
     }, [])
 
     return { data, status }
 }
+
+// // Prototipo
+//     useEffect(() => {
+//         const fetchData = async () => {
+//             const res = await fetch(config.apiURL + endPoint + config.operatorId, requestOptions)
+
+//             setStatus(res.status)
+//             setData(await res.json())
+
+//         }
+//         fetchData()
+//     }, [])
+
+//     return { data, status }
+// }
 
 export default useFetchGet
