@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import useAuth from '../helpers/useAuth'
 import InputSelect from '../components/InputSelect'
 import InputGroup from '../components/InputGroup'
 import useFetchGet from '../helpers/useFetchGet'
@@ -7,7 +8,9 @@ import Sidebar from "../components/Sidebar"
 import ContentHeader from '../components/ContentHeader'
 import CustomButton from '../components/CustomButton'
 
-const Sales = () => {
+const Sales = ({ isAuth }) => {
+    useAuth(isAuth)
+
     const clientList = useFetchGet('clients/').data
     const productList = useFetchGet('products/').data
     const [clientId, setClientId] = useState("")

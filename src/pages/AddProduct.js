@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import useAuth from '../helpers/useAuth';
 import { useNavigate } from 'react-router-dom';
 import config from '../helpers/config.json'
 import ContentHeader from '../components/ContentHeader';
@@ -7,7 +8,9 @@ import Navbar from "../components/Navbar";
 import Sidebar from "../components/Sidebar";
 import InputGroup from '../components/InputGroup';
 
-const AddProduct = () => {
+const AddProduct = ({ isAuth }) => {
+    useAuth(isAuth)
+
     let error = ""
     const navigate = useNavigate()
     const [name, setName] = useState("")

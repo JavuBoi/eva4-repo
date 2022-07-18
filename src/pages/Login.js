@@ -3,9 +3,8 @@ import InputGroup from '../components/InputGroup'
 import MessageBox from '../components/MessageBox'
 import config from '../helpers/config.json'
 import { useNavigate } from 'react-router-dom'
-// import useAuth from '../helpers/useAuth'
 
-const Login = () => {
+const Login = ({ setIsAuth }) => {
     const [nickname, setNickname] = useState("")
     const [password, setPassword] = useState("")
     const [buttonDisabled, setButtonDisabled] = useState(false)
@@ -17,7 +16,6 @@ const Login = () => {
         body: JSON.stringify({ nickname: nickname, password: password, operatorId: config.operatorId })
     }
     const navigate = useNavigate()
-    // const { setAuth } = useAuth()
 
     const handleLogin = async (event) => {
         event.preventDefault()
@@ -66,10 +64,8 @@ const Login = () => {
                     const infoData = result.data[0]
                     const infoUser = JSON.stringify(infoData)
 
-                    // const roles = [infoData['level']]
-                    // setAuth({ nickname, password, roles })
-
                     localStorage.setItem("user", infoUser)
+                    setIsAuth(true)
 
                     setError(false)
                     navigate('/sales')

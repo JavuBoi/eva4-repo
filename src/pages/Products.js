@@ -1,4 +1,5 @@
 import React from 'react';
+import useAuth from '../helpers/useAuth';
 import { useNavigate } from 'react-router-dom';
 import ContentHeader from '../components/ContentHeader';
 import CustomButton from '../components/CustomButton';
@@ -6,7 +7,8 @@ import Navbar from "../components/Navbar";
 import Sidebar from "../components/Sidebar";
 import useFetchGet from '../helpers/useFetchGet';
 
-const Products = () => {
+const Products = ({ isAuth }) => {
+    useAuth(isAuth)
     const navigate = useNavigate()
     const { data: productList } = useFetchGet('products/')
 

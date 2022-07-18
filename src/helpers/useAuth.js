@@ -1,8 +1,14 @@
-import { useContext } from "react";
-import AuthContext from "./../helpers/AuthProvider"
+import { useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 
-const useAuth = () => {
-    return useContext(AuthContext)
+const useAuth = (isAuth) => {
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        if (!isAuth) {
+            navigate('/')
+        }
+    }, [isAuth])
 }
 
 export default useAuth;
