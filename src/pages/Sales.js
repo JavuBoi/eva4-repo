@@ -1,11 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import InputSelect from '../components/InputSelect'
 import InputGroup from '../components/InputGroup'
 import useFetchGet from '../helpers/useFetchGet'
-import Navbar from "../components/Navbar";
-import Sidebar from "../components/Sidebar";
+import Navbar from "../components/Navbar"
+import Sidebar from "../components/Sidebar"
 import ContentHeader from '../components/ContentHeader'
-import { useEffect } from 'react';
+import CustomButton from '../components/CustomButton'
 
 const Sales = () => {
     const clientList = useFetchGet('clients/').data
@@ -39,10 +39,35 @@ const Sales = () => {
         } catch (e) {
             //
         }
-    }, [qty, productId])
+    }, [qty, product])
+
+
+    // Agregar al carrito
+    const [cart] = useState([])
+    const [CartBody, setCartBody] = useState(null)
+
+    const addToCart = () => {
+        if (product && qty > 0) {
+            cart.push({
+                name: product.name,
+                qty: qty,
+                total: total
+            })
+
+            setCartBody(cart.map(({ name, qty, total }, i) => {
+                return (
+                    <tr key={i}>
+                        <td>{name}</td>
+                        <td>{qty}</td>
+                        <td>{total}</td>
+                        <td><CustomButton /></td>
+                    </tr>
+                )
+            }))
+        }
+    }
 
     return (
-
         <div>
             <Navbar />
             <Sidebar />
@@ -113,7 +138,7 @@ const Sales = () => {
                                         name="unitary"
                                         inputLabel="Unitario"
                                         readOnly={true}
-                                        style=" bg-white"
+                                        inputStyle=" bg-white"
                                     />
                                 </div>
                                 <div className="col-4">
@@ -123,7 +148,7 @@ const Sales = () => {
                                         name="discount"
                                         inputLabel="Descuento"
                                         readOnly={true}
-                                        style=" bg-white"
+                                        inputStyle=" bg-white"
 
                                     />
                                 </div>
@@ -134,11 +159,15 @@ const Sales = () => {
                                         name="total"
                                         inputLabel="Total"
                                         readOnly={true}
-                                        style=" bg-white"
+                                        inputStyle=" bg-white"
                                     />
                                 </div>
                                 <div className="col-12">
-                                    <button className="btn btn-primary btn-block"><i className="fas fa-cart-plus" />Agregar</button>
+                                    <CustomButton
+                                        btnContent="Agregar"
+                                        btnStyle="primary btn-block"
+                                        icon="cart-plus"
+                                        onClick={addToCart} />
                                 </div>
                                 <div className="col-12 py-2">
                                     <hr />
@@ -153,6 +182,9 @@ const Sales = () => {
                                                 <th>Accion</th>
                                             </tr>
                                         </thead>
+                                        <tbody>
+                                            {CartBody}
+                                        </tbody>
                                     </table>
                                 </div>
                                 <div className="col-6">

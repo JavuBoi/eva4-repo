@@ -1,6 +1,6 @@
 import React from 'react'
 
-const InputGroup = ({ type, value, name, placeholder, readOnly, inputLabel, icon, setValue, style }) => {
+const InputGroup = ({ type, value, name, placeholder, readOnly, inputLabel, icon, setValue, inputStyle }) => {
     return (
 
         <div className={(inputLabel ? "form" : "input") + "-group mb-3"}>
@@ -8,7 +8,7 @@ const InputGroup = ({ type, value, name, placeholder, readOnly, inputLabel, icon
                 <label className="control-label" htmlFor={name}>{inputLabel}</label>
             )}
             <input
-                className={"form-control" + (style ? style : "")}
+                className={"form-control" + (inputStyle ? inputStyle : "")}
                 type={type}
                 name={name}
                 id={name}
