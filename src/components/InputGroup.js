@@ -8,7 +8,7 @@ const InputGroup = ({ type, value, name, placeholder, readOnly, inputLabel, icon
                 <label className="control-label" htmlFor={name}>{inputLabel}</label>
             )}
             <input
-                className={"form-control" + (inputStyle ? inputStyle : "")}
+                className={"form-control " + (inputStyle ? inputStyle : "")}
                 type={type}
                 name={name}
                 id={name}

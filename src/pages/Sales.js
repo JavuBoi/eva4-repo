@@ -13,34 +13,44 @@ const Sales = () => {
     const [clientId, setClientId] = useState("")
     const [productId, setProductId] = useState("")
 
-    // Mostrar datos del producto en formulario
-    const [product, setProduct] = useState("")
-    const [qty, setQty] = useState("")
+    // Datos del producto en formulario
+    const [product, setProduct] = useState(null)
+    const [qty, setQty] = useState(0)
     const [discount, setDiscount] = useState(0)
+    const [unitary, setUnitary] = useState(0)
     const [total, setTotal] = useState(0)
 
     useEffect(() => {
         try {
             setProduct(productList.find(product => { return product.id === productId }))
-            setDiscount(product.MDPrice)
+            setDiscount(product.MDPercentage)
         } catch (e) {
             //
         }
     }, [productId, productList, product])
 
+    const [qtyError, setQtyError] = useState(false)
+    const [unitaryError, setUnitaryError] = useState(false)
+    const [discountError, setDiscountError] = useState(false)
+
     useEffect(() => {
-        try {
-            if (product) {
-                const { price, MDPrice } = product
-                setDiscount(qty * MDPrice > 0 ? qty * MDPrice : MDPrice)
-                setTotal(qty * (price - MDPrice) > 0 ? qty * (price - MDPrice) : 0)
+        if (product) {
+            const { price, MDPrice, MSU, MDPercentage } = product
 
-            }
-        } catch (e) {
-            //
+            setUnitary(price)
+            setQty(MSU)
+            setTotal(qty * (price - MDPrice) > 0 ? qty * (price - MDPrice) : 0)
+
+            // Errores de formulario
+            setQtyError(qty < MSU)
+            setUnitaryError((price - unitary) > MDPrice)
+            setDiscountError(discount > MDPercentage)
+        } else {
+            setQty(0)
+            setUnitary(0)
+            setDiscount(0)
         }
-    }, [qty, product])
-
+    }, [product, qty, unitary, discount])
 
     // Agregar al carrito
     const [cart] = useState([])
@@ -78,31 +88,31 @@ const Sales = () => {
                         <div className="card-body ">
                             <div className="row">
                                 <div className="col-10">
-                                    {clientList && <InputSelect
+                                    {clientList ? <InputSelect
                                         name="cliente"
                                         inputLabel="Cliente"
                                         optionList={clientList}
                                         value={clientId}
                                         setValue={setClientId}
-                                    />}
+                                    /> : <label className='control-label'>Cargando clientes...</label>}
 
                                 </div>
                                 <div className="col-2">
                                     <div className="form-group">
-                                        <label htmlFor="control-label">&nbsp;</label>
+                                        <label className="control-label">&nbsp;</label>
                                         <button className="btn btn-success form-control"><i className="fas fa-chevron-right" /></button>
                                     </div>
                                 </div>
                             </div>
                             <div className="row">
                                 <div className="col-12">
-                                    {productList && <InputSelect
+                                    {productList ? <InputSelect
                                         name="producto"
                                         inputLabel="Producto"
                                         optionList={productList}
                                         value={productId}
                                         setValue={setProductId}
-                                    />}
+                                    /> : <label className='control-label'>Cargando productos...</label>}
                                 </div>
                                 <div className="col-4">
                                     <InputGroup
@@ -129,27 +139,27 @@ const Sales = () => {
                                         setValue={setQty}
                                         name="qty"
                                         inputLabel="Cantidad"
+                                        inputStyle={qtyError && "text-danger"}
                                     />
                                 </div>
                                 <div className="col-4">
                                     <InputGroup
                                         type="text"
-                                        value={"$" + (product ? product.price : 0)}
+                                        value={unitary}
+                                        setValue={setUnitary}
                                         name="unitary"
                                         inputLabel="Unitario"
-                                        readOnly={true}
-                                        inputStyle=" bg-white"
+                                        inputStyle={unitaryError && "text-danger"}
                                     />
                                 </div>
                                 <div className="col-4">
                                     <InputGroup
                                         type="text"
-                                        value={"$" + (product ? discount : 0)}
+                                        value={(discount)}
                                         name="discount"
+                                        setValue={setDiscount}
                                         inputLabel="Descuento"
-                                        readOnly={true}
-                                        inputStyle=" bg-white"
-
+                                        inputStyle={discountError && "text-danger"}
                                     />
                                 </div>
                                 <div className="col-4">
@@ -163,11 +173,7 @@ const Sales = () => {
                                     />
                                 </div>
                                 <div className="col-12">
-                                    <CustomButton
-                                        btnContent="Agregar"
-                                        btnStyle="primary btn-block"
-                                        icon="cart-plus"
-                                        onClick={addToCart} />
+                                    <CustomButton btnContent="Agregar" btnStyle="primary btn-block" icon="cart-plus" onClick={addToCart} />
                                 </div>
                                 <div className="col-12 py-2">
                                     <hr />
